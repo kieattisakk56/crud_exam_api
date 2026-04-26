@@ -15,7 +15,8 @@ public class UnitOfWork : IUnitOfWork
     public IProductBarcodeRepository ProductBarcodes { get; private set; }
     public IProductQrCodeRepository ProductQrCodes { get; private set; }
     public IExamQuestionRepository ExamQuestions { get; private set; }
-    public IPostCommentRepository PostComments { get; private set; }
+    public IPostRepository Posts { get; private set; }
+    public ICommentRepository Comments { get; private set; }
     public IExamResultRepository ExamResults { get; private set; }
 
     public UnitOfWork(ApplicationDbContext dbContext)
@@ -28,7 +29,8 @@ public class UnitOfWork : IUnitOfWork
         ProductBarcodes = new ProductBarcodeRepository(_dbContext);
         ProductQrCodes = new ProductQrCodeRepository(_dbContext);
         ExamQuestions = new ExamQuestionRepository(_dbContext);
-        PostComments = new PostCommentRepository(_dbContext);
+        Posts = new PostRepository(_dbContext);
+        Comments = new CommentRepository(_dbContext);
         ExamResults = new ExamResultRepository(_dbContext);
     }
 

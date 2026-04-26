@@ -15,7 +15,8 @@ public class ApplicationDbContext : DbContext
     public DbSet<ProductQrCode> ProductQrCodes { get; set; }
     public DbSet<ExamQuestion> ExamQuestions { get; set; }
     public DbSet<ExamQuestionChoice> ExamQuestionChoices { get; set; }
-    public DbSet<PostComment> PostComments { get; set; }
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Comment> Comments { get; set; }
     public DbSet<ExamResult> ExamResults { get; set; }
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
@@ -42,6 +43,13 @@ public class ApplicationDbContext : DbContext
             .WithOne()
             .HasForeignKey(c => c.ExamQuestionId)
             .OnDelete(DeleteBehavior.Restrict);
+
+        // IT 09: Post -> Comment (1-to-many)
+        modelBuilder.Entity<Post>()
+            .HasMany(p => p.Comments)
+            .WithOne(c => c.Post)
+            .HasForeignKey(c => c.PostId)
+            .OnDelete(DeleteBehavior.Cascade);
 
         // ============== Seed Data ==============
 
@@ -101,8 +109,21 @@ public class ApplicationDbContext : DbContext
             new ExamQuestionChoice { Id = 12, ExamQuestionId = 3, ChoiceNumber = 4, ChoiceText = "ขอนแก่น" }
         );
 
-        modelBuilder.Entity<PostComment>().HasData(
-            new PostComment { Id = 1, CommenterName = "Blend 285", CommentText = "have a good day" }
+        // IT 09: Posts and Comments
+        modelBuilder.Entity<Post>().HasData(
+            new Post 
+            { 
+                Id = 1, 
+                Title = "Welcome to 63 Test", 
+                Content = "This is the first post in our new system.", 
+                Author = "Admin",
+                ImageUrl = "https://picsum.photos/800/400"
+            }
+        );
+
+        modelBuilder.Entity<Comment>().HasData(
+            new Comment { Id = 1, PostId = 1, CommenterName = "Blend 285", CommentText = "have a good day" },
+            new Comment { Id = 2, PostId = 1, CommenterName = "Kieattisakk", CommentText = "Great start!" }
         );
     }
 

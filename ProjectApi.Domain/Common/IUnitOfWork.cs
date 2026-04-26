@@ -11,7 +11,8 @@ public interface IUnitOfWork : IDisposable
     IProductBarcodeRepository ProductBarcodes { get; }
     IProductQrCodeRepository ProductQrCodes { get; }
     IExamQuestionRepository ExamQuestions { get; }
-    IPostCommentRepository PostComments { get; }
+    IPostRepository Posts { get; }
+    ICommentRepository Comments { get; }
     IExamResultRepository ExamResults { get; }
     Task<int> SaveChangesAsync(CancellationToken cancellationToken = default);
 }

@@ -1,9 +1,2 @@
-using ProjectApi.Domain.Entities;
-using ProjectApi.Domain.Interfaces;
-
-namespace ProjectApi.Infrastructure.Persistence.Repositories;
-
-public class PostCommentRepository : Repository<PostComment>, IPostCommentRepository
-{
-    public PostCommentRepository(ApplicationDbContext dbContext) : base(dbContext) { }
-}
+// This file is deprecated. Please delete this file.
+// The PostComment entity has been replaced by separate Post and Comment entities.
